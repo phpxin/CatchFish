@@ -20,6 +20,38 @@ Scene* Battle::createScene()
     return scene;
 }
 
+void Battle::createFish()
+{
+	Vector<SpriteFrame *> sfv;
+
+	SpriteFrame *sf = SpriteFrame::create("fish1.png", Rect(0,0,55,26));
+	sfv.pushBack(sf);
+
+	SpriteFrame *sf1 = SpriteFrame::create("fish1.png", Rect(0, 36, 55, 26));
+	sfv.pushBack(sf1);
+
+	SpriteFrame *sf2 = SpriteFrame::create("fish1.png", Rect(0, 73, 55, 26));
+	sfv.pushBack(sf2);
+
+	SpriteFrame *sf3 = SpriteFrame::create("fish1.png", Rect(0, 110, 55, 26));
+	sfv.pushBack(sf3);
+
+	Animation *fishRun = Animation::create();
+	fishRun->initWithSpriteFrames(sfv, 0.5);
+	
+
+	Animate *run = Animate::create(fishRun);
+	//run->
+
+	Sprite *fish = Sprite::create();
+	fish->initWithSpriteFrame(sf);
+	fish->setPosition(ccp(200, 200));
+	this->addChild(fish);
+
+	fish->runAction(RepeatForever::create(run));
+	
+}
+
 // on "init" you need to initialize your instance
 bool Battle::init()
 {
@@ -109,6 +141,8 @@ bool Battle::init()
 	auto ps = ParticleRain::create();
 	ps->setPosition(Vec2(visibleSize.width/2, visibleSize.height));
 	this->addChild(ps);
+
+	this->createFish();
 
     return true;
 }
